@@ -1,7 +1,7 @@
 # Bestvironment
-Répartition des taches durant notre projet. 
+# Répartition des taches durant notre projet. 
 
-Justine : 
+Justine : j'ai éffectué 
 
 Inès : 
 
