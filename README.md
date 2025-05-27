@@ -21,7 +21,7 @@ Nous avons d’abord créé un groupe WhatsApp à trois pour partager nos idées
 - Buzzer
 
 Nous avons donc créé et finalisé deux programmes : l’un pour mesurer la température de la salle de classe, et l’autre pour la luminosité. Cela a été rendu possible grâce au matériel fourni par notre enseignant (carte UCA, fils, breadboard, capteurs de température et de lumière), ainsi qu’aux logiciels de programmation, notamment Arduino.
-nous avons ensuite rajouté le signal sonore apporté par le buzzer pour informer l'enseignant des nouvelles données. 
+Nous avons ensuite rajouté le signal sonore apporté par le buzzer pour informer l'enseignant des nouvelles données. 
 
 Nous avons veillé à ce que nos codes soient simples, à la fois visuellement et dans leur utilisation, afin de garantir une prise en main facile et intuitive.
 
