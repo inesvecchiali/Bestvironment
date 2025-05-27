@@ -30,4 +30,7 @@ Après plusieurs séances de codage et de nombreuses tentatives infructueuses, n
 Pour conclure, ce projet nous a permis de progresser en tant que groupe, de coopérer efficacement et de faire entendre nos idées. Nous avons parfois douté, aussi bien de notre projet que de nos compétences, mais le soutien de nos enseignantes ainsi que la solidarité au sein de notre trio nous ont permis d’aller au bout, avec un résultat concluant et satisfaisant
 
 ### Le code et les branchements :
-![efe70a93-767b-44d3-a18b-18f79d7cda2b](https://github.com/user-attachments/assets/ba78b9ec-9d63-4251-9450-8bff67c1a6fd)
+Ici le capteur de luminosité (LTR-303A) et le capteur de température (SHTC3) sont déjà intégrés sur la carte UCA. Or si l'on connecte directement le buzzer à celle ci sans utilisé la breadboard alors le capteur de température est inibé. 
+Les branchements à faire sont donc de connecter la borne + du buzzer à la borne D3 de la carte puis la borne - à la borne GND
+
+<img width="358" alt="Capture d’écran 2025-05-27 à 18 19 06" src="https://github.com/user-attachments/assets/614740bf-256e-4fb2-b901-bd9eb0867092" />
