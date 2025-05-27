@@ -1,1 +1,150 @@
+#include <Wire.h>
+#include "SHTSensor.h" // http://librarymanager/All#arduino_shtc3
+#include <LTR303.h>
+#include <Wire.h>
+#include "pitches.h"
 
+#define UPDATES_PER_SECOND 1000
+#define Button 2
+#define Buzzer 3
+
+SHTSensor sht;
+LTR303 light;
+
+int melody[] = {
+  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
+
+ //note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {
+  4, 8, 8, 4, 4, 4, 4, 4
+};
+unsigned char gain;     // Gain setting, values = 0-7 
+unsigned char integrationTime;  // Integration ("shutter") time in milliseconds
+unsigned char measurementRate;  // Interval between DATA_REGISTERS update
+
+void setup() {
+  Serial.begin(115200);
+   Serial.println("Temperature:,Humidity:");   // Plot labels
+  Wire.begin();
+  sht.init();
+  sht.setAccuracy(SHTSensor::SHT_ACCURACY_MEDIUM); // only supported by SHT3x
+  delay( 3000 ); // power-up safety delay
+  // Initialize the Serial port:
+  
+  
+  
+  delay(1000);
+
+  light.begin();
+
+  gain = 0;
+ 
+  light.setControl(gain, false, false);
+
+
+  unsigned char time = 1;
+ 
+  light.setMeasurementRate(time,3);
+
+  // To start taking measurements, power up the sensor:
+  
+  light.setPowerUp();
+
+ 
+  Serial.println("Lux:");   // Plot labels ! cela s'affiche !
+  
+  //configure pin 2 as an input and enable the internal pull-up resistor
+  pinMode(Button, INPUT_PULLUP);
+  pinMode(13, OUTPUT);
+  
+  // iterate over the notes of the melody:
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+
+   
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(Buzzer, melody[thisNote], noteDuration);
+
+    // to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    // stop the tone playing:
+    noTone(Buzzer);
+  }
+} 
+
+
+void loop() {
+    sht.readSample();
+    Serial.print(sht.getTemperature());
+    Serial.print(F(" "));
+   
+    
+   int ms = 1000;
+  
+  delay(ms);
+
+  unsigned int data0, data1;
+  double lux;    // Resulting lux value
+  boolean good;  // True if neither sensor is saturated
+
+    float temperature = sht.getTemperature();
+    
+ if (temperature < 19.0) {
+      Serial.println ("allumez le chauffage");
+  }   
+ else if (temperature > 26.0) {
+     Serial.println ("créez un courant d’air");
+  }
+ else if (temperature > 22.0) {
+       Serial.println ("vérifiez que le chauffage est éteint");
+  } 
+ else if (temperature < 22.0) {
+      Serial.println ( "vérifiez que les fenêtres soient fermées");
+
+ }
+
+ if (light.getData(data0,data1)) {
+  
+    good = light.getLux(gain,integrationTime,data0,data1,lux);
+
+    Serial.print(lux);
+   
+  }
+    
+	
+    
+    Serial.print(" ");
+ if (lux > 900.0) {
+      Serial.println ("éteindre la lumière");
+  }   
+ else if (lux > 800.0 && lux < 900.0) {
+    Serial.println(" ");
+  }    
+ else if (lux < 800.0) {
+     Serial.println ("allumer la lumière");
+  }
+ 
+  
+ digitalWrite(13, HIGH);
+
+  
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+
+   
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(Buzzer, melody[thisNote], noteDuration);
+
+   
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+   
+    noTone(Buzzer);
+    
+  }
+  
+  delay(4000); // Attente de 4 secondes avant la prochaine mesure
+
+
+}
