@@ -34,3 +34,6 @@ Ici le capteur de luminosité (LTR-303A) et le capteur de température (SHTC3) s
 Les branchements à faire sont donc de connecter la borne + du buzzer à la borne D3 de la carte puis la borne - à la borne GND
 
 <img width="358" alt="Capture d’écran 2025-05-27 à 18 19 06" src="https://github.com/user-attachments/assets/614740bf-256e-4fb2-b901-bd9eb0867092" />
+
+<img width="900" alt="Capture d’écran 2025-05-27 à 20 25 14" src="https://github.com/user-attachments/assets/e5174c19-8f9d-457e-8f44-efd13455d9ed" />
+
